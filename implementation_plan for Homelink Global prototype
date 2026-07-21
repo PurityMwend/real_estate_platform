@@ -1,0 +1,72 @@
+# Implementation Plan: HomelinkGlobal Real Estate Prototype
+
+This plan outlines the steps to build and run the `homelinkglobal-prototype` Next.js application, integrating pre-existing source files with newly created utility modules, a premium filter panel, public assets, and project configurations.
+
+## User Review Required
+
+> [!IMPORTANT]
+> The prototype will be configured with **Next.js 15** and **Tailwind CSS v4** (using PostCSS integration), matching the `@import "tailwindcss";` present in `src/app/globals.css`.
+>
+> We will also generate 3 high-quality property images using the AI image generation tool to populate the public assets folder.
+
+## Proposed Changes
+
+We will introduce the project root configuration files, add utility helpers, create a premium `FiltersPanel` component, and generate mock property images.
+
+---
+
+### Project Configurations (Root)
+
+#### [NEW] [package.json](file:///c:/Users/Administrator/Downloads/files/package.json)
+- Define standard Next.js 15, React 19, and Tailwind CSS v4 dependencies.
+- Add utility libraries: `lucide-react` (icons), `clsx` & `tailwind-merge` (class utility merge).
+
+#### [NEW] [tsconfig.json](file:///c:/Users/Administrator/Downloads/files/tsconfig.json)
+- Setup TypeScript configuration for Next.js with path aliases (`@/*` pointing to `src/*`).
+
+#### [NEW] [next.config.ts](file:///c:/Users/Administrator/Downloads/files/next.config.ts)
+- Standard Next.js configuration module.
+
+#### [NEW] [postcss.config.mjs](file:///c:/Users/Administrator/Downloads/files/postcss.config.mjs)
+- Configure PostCSS to use `@tailwindcss/postcss` for compilation of Tailwind CSS v4 styles.
+
+#### [NEW] [README.md](file:///c:/Users/Administrator/Downloads/files/README.md)
+- Provide project overview, tech stack details, and instructions for running the dev server.
+
+---
+
+### Utilities & Components
+
+#### [NEW] [utils.ts](file:///c:/Users/Administrator/Downloads/files/src/lib/utils.ts)
+- Create a `cn` utility combining `clsx` and `twMerge` for conditional styling.
+
+#### [NEW] [FiltersPanel.tsx](file:///c:/Users/Administrator/Downloads/files/src/components/FiltersPanel.tsx)
+- Create a beautiful, interactive filter sidebar with smooth transitions and curated controls (listing type, property type, price range, bedrooms/bathrooms).
+- Sync filter values with URL search parameters dynamically to drive results in real-time.
+
+#### [MODIFY] [page.tsx](file:///c:/Users/Administrator/Downloads/files/src/app/properties/page.tsx)
+- Integrate the `FiltersPanel` side-by-side with the search results on desktop, and collapsible on mobile.
+
+---
+
+### Public Assets
+
+#### [NEW] [logo.svg](file:///c:/Users/Administrator/Downloads/files/public/logo.svg)
+- Design and write a custom SVG logo representing "HomelinkGlobal" (a modern geometric logo with house motifs).
+
+#### [NEW] [property-1.jpg](file:///c:/Users/Administrator/Downloads/files/public/images/property-1.jpg)
+#### [NEW] [property-2.jpg](file:///c:/Users/Administrator/Downloads/files/public/images/property-2.jpg)
+#### [NEW] [property-3.jpg](file:///c:/Users/Administrator/Downloads/files/public/images/property-3.jpg)
+- Generate premium property exterior/interior photos to be served from the public folder.
+
+---
+
+## Verification Plan
+
+### Automated Verification
+- Install dependencies (`npm install`).
+- Build the Next.js application (`npm run build`) to verify there are no TypeScript compile-time errors or missing assets.
+
+### Manual Verification
+- Spin up the local development server (`npm run dev`).
+- Run a browser agent to verify that the home page, search bar, filters page, details page, and inquiries form work correctly and look premium.
